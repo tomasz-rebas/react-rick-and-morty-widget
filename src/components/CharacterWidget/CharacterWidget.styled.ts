@@ -48,6 +48,7 @@ export const Heading = styled.div<HeadingProps>`
 `;
 
 export const CharacterName = styled.h4`
+  font-weight: 700;
   margin: 0;
 `;
 

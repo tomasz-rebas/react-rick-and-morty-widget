@@ -23,12 +23,23 @@ export const CharacterAvatar = styled.img`
   filter: drop-shadow(0 4px 4px #00000026);
 `;
 
-export const Heading = styled.div`
+export const Heading = styled.div<{ status: string }>`
   max-height: 30px;
   padding: 8px 10px;
-  background-color: #87c74026;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
+
+  background-color: ${({ status }) => {
+    switch (status) {
+      case "Alive":
+        return "#87c74026";
+      case "Dead":
+        return "#EB575726";
+      default:
+        // Returning grey for all the cases other than "Alive" and "Dead"
+        return "#E0E0E0";
+    }
+  }};
 `;
 
 export const CharacterName = styled.h4`

@@ -41,7 +41,7 @@ const CharacterWidget: React.FC = () => {
 
   return (
     <CharacterWidgetContainer>
-      <Heading>
+      <Heading status={status}>
         <CharacterName>{name}</CharacterName>
       </Heading>
       <Content>

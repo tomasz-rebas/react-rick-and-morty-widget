@@ -3,7 +3,10 @@ import { AppDataContext } from "../../contexts/AppData.context";
 import {
   CharacterWidgetContainer,
   CharacterStatusLabel,
-  CharacterAvatar
+  CharacterAvatar,
+  Heading,
+  Content,
+  CharacterName,
 } from "./CharacterWidget.styled";
 
 const CharacterWidget: React.FC = () => {
@@ -12,18 +15,18 @@ const CharacterWidget: React.FC = () => {
   if (!character) return null;
   return (
     <CharacterWidgetContainer>
-      <div>
-        <p>Name: {character.name}</p>
-
+      <Heading>
+        <CharacterName>{character.name}</CharacterName>
+      </Heading>
+      <Content>
         <p>
           Status:{" "}
           <CharacterStatusLabel isAlive={character.status === "Alive"}>
             {character.status}
           </CharacterStatusLabel>
         </p>
-      </div>
-
-      <CharacterAvatar src={character.imageUrl} alt="Character avatar" />
+        <CharacterAvatar src={character.imageUrl} alt="Character avatar" />
+      </Content>
     </CharacterWidgetContainer>
   );
 };

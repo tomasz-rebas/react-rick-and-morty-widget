@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 
 export const CharacterWidgetContainer = styled.div`
   width: 360px;
+  height: 120px;
   border-radius: 8px;
   border: 1px solid #e0e0e0;
   font-size: 11px;
@@ -26,6 +27,8 @@ export const Heading = styled.div`
   max-height: 30px;
   padding: 8px 10px;
   background-color: #87c74026;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 `;
 
 export const CharacterName = styled.h4`

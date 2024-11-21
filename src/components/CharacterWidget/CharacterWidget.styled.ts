@@ -1,10 +1,11 @@
 import styled from "@emotion/styled";
 
 export const CharacterWidgetContainer = styled.div`
-  width: 300px;
-  border-radius: 4px;
-  border: 1px solid darkgray;
+  width: 360px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
   font-size: 11px;
+  background-color: #f2f2f2;
 `;
 
 export const CharacterStatusLabel = styled.span<{ isAlive: boolean }>`
@@ -33,4 +34,11 @@ export const Content = styled.div`
   flex-direction: row;
   justify-content: space-between;
   padding: 10px;
+`;
+
+export const DataGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  width: 100%;
 `;

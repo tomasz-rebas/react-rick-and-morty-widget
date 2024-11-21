@@ -7,25 +7,31 @@ import {
   Heading,
   Content,
   CharacterName,
+  DataGrid,
 } from "./CharacterWidget.styled";
 
 const CharacterWidget: React.FC = () => {
   const { character } = useContext(AppDataContext);
 
   if (!character) return null;
+
+  const { id, name, gender, status, imageUrl, episodes } = character;
+
   return (
     <CharacterWidgetContainer>
       <Heading>
-        <CharacterName>{character.name}</CharacterName>
+        <CharacterName>{name}</CharacterName>
       </Heading>
       <Content>
-        <p>
-          Status:{" "}
-          <CharacterStatusLabel isAlive={character.status === "Alive"}>
-            {character.status}
+        <DataGrid>
+          <div>{id}</div>
+          <CharacterStatusLabel isAlive={status === "Alive"}>
+            {status}
           </CharacterStatusLabel>
-        </p>
-        <CharacterAvatar src={character.imageUrl} alt="Character avatar" />
+          <div>{gender}</div>
+          <div>{episodes}</div>
+        </DataGrid>
+        <CharacterAvatar src={imageUrl} alt="Character avatar" />
       </Content>
     </CharacterWidgetContainer>
   );

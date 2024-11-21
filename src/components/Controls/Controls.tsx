@@ -29,11 +29,11 @@ const Controls: React.FC = () => {
   }, [currentCharacterId]);
 
   const fetchNextCharacter = (): void => {
-    setCurrentCharacterId(currentCharacterId + 1);
+    setCurrentCharacterId((previousId) => previousId + 1);
   };
 
   const fetchPreviousCharacter = (): void => {
-    setCurrentCharacterId(currentCharacterId - 1);
+    setCurrentCharacterId((previousId) => previousId - 1);
   };
 
   return (

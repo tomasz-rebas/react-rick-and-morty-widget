@@ -30,4 +30,8 @@ export const Button = styled.button`
   :disabled {
     cursor: not-allowed;
   }
+
+  :disabled:active {
+    transform: none;
+  }
 `;

@@ -8,6 +8,6 @@ export const AppContainer = styled.main`
   height: 100vh;
 
   * {
-    font-family: "Open Sans";
+    font-family: "Open Sans", sans-serif;
   }
 `;

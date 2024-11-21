@@ -2,28 +2,69 @@ import React, { useContext } from "react";
 import { AppDataContext } from "../../contexts/AppData.context";
 import {
   CharacterWidgetContainer,
-  CharacterStatusLabel,
-  CharacterAvatar
+  CharacterAvatar,
+  Heading,
+  Content,
+  CharacterName,
+  DataGrid,
+  Label,
+  Property,
+  FetchingStatus,
 } from "./CharacterWidget.styled";
 
 const CharacterWidget: React.FC = () => {
-  const { character } = useContext(AppDataContext);
+  const { isLoading, isError, character } = useContext(AppDataContext);
 
   if (!character) return null;
+
+  const { id, name, gender, status, imageUrl, episodes } = character;
+
+  if (isLoading) {
+    return (
+      <CharacterWidgetContainer>
+        <FetchingStatus>
+          <span>Loading...</span>
+        </FetchingStatus>
+      </CharacterWidgetContainer>
+    );
+  }
+
+  if (isError) {
+    return (
+      <CharacterWidgetContainer>
+        <FetchingStatus>
+          <span>An error occured... try again later.</span>
+        </FetchingStatus>
+      </CharacterWidgetContainer>
+    );
+  }
+
   return (
     <CharacterWidgetContainer>
-      <div>
-        <p>Name: {character.name}</p>
-
-        <p>
-          Status:{" "}
-          <CharacterStatusLabel isAlive={character.status === "Alive"}>
-            {character.status}
-          </CharacterStatusLabel>
-        </p>
-      </div>
-
-      <CharacterAvatar src={character.imageUrl} alt="Character avatar" />
+      <Heading status={status}>
+        <CharacterName>{name}</CharacterName>
+      </Heading>
+      <Content>
+        <DataGrid>
+          <Property>
+            <Label>id</Label>
+            <span>#{id}</span>
+          </Property>
+          <Property>
+            <Label>status</Label>
+            <span>{status}</span>
+          </Property>
+          <Property>
+            <Label>gender</Label>
+            <span>{gender}</span>
+          </Property>
+          <Property>
+            <Label>episodes</Label>
+            <span>{episodes}</span>
+          </Property>
+        </DataGrid>
+        <CharacterAvatar src={imageUrl} alt="Character avatar" />
+      </Content>
     </CharacterWidgetContainer>
   );
 };

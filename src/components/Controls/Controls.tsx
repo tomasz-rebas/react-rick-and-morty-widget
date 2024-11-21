@@ -12,23 +12,23 @@ import { AppDataContext } from "../../contexts/AppData.context";
 const MAXIMUM_CHARACTER_COUNT = 826;
 
 const Controls: React.FC = () => {
-  const [isPreviousDisabled, setIsPreviousDisabled] = useState(true);
-  const [isNextDisabled, setIsNextDisabled] = useState(false);
+  const [isFirstCharacter, setIsFirstCharacter] = useState(true);
+  const [isLastCharacter, setIsLastCharacter] = useState(false);
   const { isLoading, currentCharacterId, setCurrentCharacterId } =
     useContext(AppDataContext);
 
   useEffect(() => {
     if (currentCharacterId === 1) {
-      setIsPreviousDisabled(true);
+      setIsFirstCharacter(true);
     } else if (currentCharacterId === MAXIMUM_CHARACTER_COUNT) {
-      setIsNextDisabled(true);
+      setIsLastCharacter(true);
     } else {
-      if (isPreviousDisabled) {
-        setIsPreviousDisabled(false);
+      if (isFirstCharacter) {
+        setIsFirstCharacter(false);
       }
 
-      if (isNextDisabled) {
-        setIsNextDisabled(false);
+      if (isLastCharacter) {
+        setIsLastCharacter(false);
       }
     }
   }, [currentCharacterId]);
@@ -44,13 +44,13 @@ const Controls: React.FC = () => {
   return (
     <Wrapper>
       <Button
-        disabled={isPreviousDisabled || isLoading}
+        disabled={isFirstCharacter || isLoading}
         onClick={fetchPreviousCharacter}
       >
         Previous
       </Button>
       <Button
-        disabled={isNextDisabled || isLoading}
+        disabled={isLastCharacter || isLoading}
         onClick={fetchNextCharacter}
       >
         Next

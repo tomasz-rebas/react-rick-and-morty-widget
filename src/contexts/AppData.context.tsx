@@ -26,9 +26,35 @@ export const AppDataContextProvider = ({
   children,
 }: React.PropsWithChildren) => {
   const [currentCharacterId, setCurrentCharacterId] = useState<number>(1);
-  const [isLoading, setIsLoading] = useState<AppData["isLoading"]>(false);
+  const [isLoading, setIsLoading] = useState<AppData["isLoading"]>(true);
   const [characterData, setCharacterData] =
     useState<AppData["character"]>(null);
+
+  const fetchData = async () => {
+    setIsLoading(true);
+
+    const response: Character = await ky
+      .get(`${API_URL}/character/${currentCharacterId}`)
+      .json();
+
+    const { id, name, gender, status, image, episode } = response;
+
+    const nextCharacterData: AppData["character"] = {
+      id,
+      name,
+      gender,
+      status,
+      imageUrl: image,
+      episodes: episode.length,
+    };
+
+    setCharacterData(nextCharacterData);
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [currentCharacterId]);
 
   const appData: AppData = useMemo(() => {
     return {
@@ -37,28 +63,6 @@ export const AppDataContextProvider = ({
       setCurrentCharacterId,
     };
   }, [isLoading, characterData]);
-
-  useEffect(() => {
-    (async () => {
-      const response: Character = await ky
-        .get(`${API_URL}/character/${currentCharacterId}`)
-        .json();
-
-      const { id, name, gender, status, image, episode } = response;
-
-      const nextCharacterData: AppData["character"] = {
-        id,
-        name,
-        gender,
-        status,
-        imageUrl: image,
-        episodes: episode.length,
-      };
-
-      setCharacterData(nextCharacterData);
-      setIsLoading(false);
-    })();
-  }, [currentCharacterId]);
 
   return (
     <AppDataContext.Provider value={appData}>

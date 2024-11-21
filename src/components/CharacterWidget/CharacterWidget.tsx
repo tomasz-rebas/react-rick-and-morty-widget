@@ -9,14 +9,25 @@ import {
   DataGrid,
   Label,
   Property,
+  FetchingStatus,
 } from "./CharacterWidget.styled";
 
 const CharacterWidget: React.FC = () => {
-  const { character } = useContext(AppDataContext);
+  const { isLoading, character } = useContext(AppDataContext);
 
   if (!character) return null;
 
   const { id, name, gender, status, imageUrl, episodes } = character;
+
+  if (isLoading) {
+    return (
+      <CharacterWidgetContainer>
+        <FetchingStatus>
+          <span>Loading...</span>
+        </FetchingStatus>
+      </CharacterWidgetContainer>
+    );
+  }
 
   return (
     <CharacterWidgetContainer>

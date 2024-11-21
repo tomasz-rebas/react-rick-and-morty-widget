@@ -54,3 +54,10 @@ export const Property = styled.div`
   height: 17px;
   margin: 5px 0;
 `;
+
+export const FetchingStatus = styled.div`
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

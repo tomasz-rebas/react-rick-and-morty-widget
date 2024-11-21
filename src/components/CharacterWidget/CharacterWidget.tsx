@@ -13,7 +13,7 @@ import {
 } from "./CharacterWidget.styled";
 
 const CharacterWidget: React.FC = () => {
-  const { isLoading, character } = useContext(AppDataContext);
+  const { isLoading, isError, character } = useContext(AppDataContext);
 
   if (!character) return null;
 
@@ -24,6 +24,16 @@ const CharacterWidget: React.FC = () => {
       <CharacterWidgetContainer>
         <FetchingStatus>
           <span>Loading...</span>
+        </FetchingStatus>
+      </CharacterWidgetContainer>
+    );
+  }
+
+  if (isError) {
+    return (
+      <CharacterWidgetContainer>
+        <FetchingStatus>
+          <span>An error occured... try again later.</span>
         </FetchingStatus>
       </CharacterWidgetContainer>
     );

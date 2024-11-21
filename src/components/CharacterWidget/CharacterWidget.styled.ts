@@ -8,8 +8,11 @@ export const CharacterWidgetContainer = styled.div`
   background-color: #f2f2f2;
 `;
 
-export const CharacterStatusLabel = styled.span<{ isAlive: boolean }>`
-  color: ${(props) => (props.isAlive ? "green" : "red")};
+export const Label = styled.span`
+  padding: 4px;
+  border-radius: 4px;
+  background-color: #b2d0eb;
+  margin-right: 4px;
 `;
 
 export const CharacterAvatar = styled.img`
@@ -33,6 +36,7 @@ export const Content = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   padding: 10px;
 `;
 
@@ -41,4 +45,9 @@ export const DataGrid = styled.div`
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
   width: 100%;
+`;
+
+export const Property = styled.div`
+  height: 17px;
+  margin: 5px 0;
 `;

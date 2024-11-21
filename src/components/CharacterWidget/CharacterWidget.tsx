@@ -2,12 +2,13 @@ import React, { useContext } from "react";
 import { AppDataContext } from "../../contexts/AppData.context";
 import {
   CharacterWidgetContainer,
-  CharacterStatusLabel,
   CharacterAvatar,
   Heading,
   Content,
   CharacterName,
   DataGrid,
+  Label,
+  Property,
 } from "./CharacterWidget.styled";
 
 const CharacterWidget: React.FC = () => {
@@ -24,12 +25,22 @@ const CharacterWidget: React.FC = () => {
       </Heading>
       <Content>
         <DataGrid>
-          <div>{id}</div>
-          <CharacterStatusLabel isAlive={status === "Alive"}>
-            {status}
-          </CharacterStatusLabel>
-          <div>{gender}</div>
-          <div>{episodes}</div>
+          <Property>
+            <Label>id</Label>
+            <span>#{id}</span>
+          </Property>
+          <Property>
+            <Label>status</Label>
+            <span>{status}</span>
+          </Property>
+          <Property>
+            <Label>gender</Label>
+            <span>{gender}</span>
+          </Property>
+          <Property>
+            <Label>episodes</Label>
+            <span>{episodes}</span>
+          </Property>
         </DataGrid>
         <CharacterAvatar src={imageUrl} alt="Character avatar" />
       </Content>

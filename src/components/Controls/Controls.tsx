@@ -23,8 +23,13 @@ const Controls: React.FC = () => {
     } else if (currentCharacterId === MAXIMUM_CHARACTER_COUNT) {
       setIsNextDisabled(true);
     } else {
-      setIsPreviousDisabled(false);
-      setIsNextDisabled(false);
+      if (isPreviousDisabled) {
+        setIsPreviousDisabled(false);
+      }
+
+      if (isNextDisabled) {
+        setIsNextDisabled(false);
+      }
     }
   }, [currentCharacterId]);
 

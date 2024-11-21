@@ -25,4 +25,8 @@ export const Button = styled.button`
   :active {
     transform: translateY(2px);
   }
+
+  :disabled {
+    cursor: not-allowed;
+  }
 `;

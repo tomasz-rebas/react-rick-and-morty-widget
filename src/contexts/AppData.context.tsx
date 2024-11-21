@@ -1,4 +1,11 @@
-import React, { createContext, useState, useEffect, useMemo } from "react";
+import React, {
+  createContext,
+  useState,
+  useEffect,
+  useMemo,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import ky from "ky";
 import { API_URL } from "../config";
 import type { Character } from "../types/RickAndMorty.types";
@@ -13,16 +20,16 @@ type AppData = {
     imageUrl: string;
     episodes: number;
   } | null;
-  fetchNextCharacter: () => void;
-  fetchPreviousCharacter: () => void;
+  currentCharacterId: number;
+  setCurrentCharacterId: Dispatch<SetStateAction<number>>;
   isError: boolean;
 };
 
 export const AppDataContext = createContext<AppData>({
   isLoading: true,
   character: null,
-  fetchNextCharacter: () => {},
-  fetchPreviousCharacter: () => {},
+  currentCharacterId: 1,
+  setCurrentCharacterId: () => {},
   isError: false,
 });
 
@@ -63,14 +70,6 @@ export const AppDataContextProvider = ({
     }
   };
 
-  const fetchNextCharacter = (): void => {
-    setCurrentCharacterId(currentCharacterId + 1);
-  };
-
-  const fetchPreviousCharacter = (): void => {
-    setCurrentCharacterId(currentCharacterId - 1);
-  };
-
   useEffect(() => {
     fetchData();
   }, [currentCharacterId]);
@@ -79,8 +78,8 @@ export const AppDataContextProvider = ({
     return {
       isLoading,
       character: characterData,
-      fetchNextCharacter,
-      fetchPreviousCharacter,
+      currentCharacterId,
+      setCurrentCharacterId,
       isError,
     };
   }, [isLoading, characterData]);

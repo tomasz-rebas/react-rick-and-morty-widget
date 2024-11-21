@@ -13,16 +13,19 @@ type AppData = {
     imageUrl: string;
     episodes: number;
   } | null;
+  setCurrentCharacterId: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export const AppDataContext = createContext<AppData>({
   isLoading: true,
   character: null,
+  setCurrentCharacterId: () => {},
 });
 
 export const AppDataContextProvider = ({
   children,
 }: React.PropsWithChildren) => {
+  const [currentCharacterId, setCurrentCharacterId] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<AppData["isLoading"]>(false);
   const [characterData, setCharacterData] =
     useState<AppData["character"]>(null);
@@ -31,12 +34,15 @@ export const AppDataContextProvider = ({
     return {
       isLoading,
       character: characterData,
+      setCurrentCharacterId,
     };
   }, [isLoading, characterData]);
 
   useEffect(() => {
     (async () => {
-      const response: Character = await ky.get(`${API_URL}/character/1`).json();
+      const response: Character = await ky
+        .get(`${API_URL}/character/${currentCharacterId}`)
+        .json();
 
       const { id, name, gender, status, image, episode } = response;
 
@@ -52,7 +58,7 @@ export const AppDataContextProvider = ({
       setCharacterData(nextCharacterData);
       setIsLoading(false);
     })();
-  }, []);
+  }, [currentCharacterId]);
 
   return (
     <AppDataContext.Provider value={appData}>

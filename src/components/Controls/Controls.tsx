@@ -4,9 +4,9 @@ import { AppDataContext } from "../../contexts/AppData.context";
 
 /**
  * Since the response doesn't provide the maximum number of characters, I decided to hardcode it
- * based on the information from docs.
+ * based on the information from the docs.
  *
- * It would be possible to get this number by fetching all the characters at once and accessing
+ * It's possible to get this number by fetching all the characters at once and accessing
  * the 'info' object, but in this task we're going for per-character fetching (as specified).
  */
 const MAXIMUM_CHARACTER_COUNT = 826;

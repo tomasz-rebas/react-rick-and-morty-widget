@@ -6,27 +6,31 @@ import type { Character } from "../types/RickAndMorty.types";
 type AppData = {
   isLoading: boolean;
   character: {
+    id: number;
     name: Character["name"];
     status: Character["status"];
+    gender: Character["gender"];
     imageUrl: string;
+    episodes: number;
   } | null;
 };
 
 export const AppDataContext = createContext<AppData>({
   isLoading: true,
-  character: null
+  character: null,
 });
 
-export const AppDataContextProvider = ({ children }: React.PropsWithChildren) => {
+export const AppDataContextProvider = ({
+  children,
+}: React.PropsWithChildren) => {
   const [isLoading, setIsLoading] = useState<AppData["isLoading"]>(false);
-  const [characterData, setCharacterData] = useState<AppData["character"]>(
-    null
-  );
+  const [characterData, setCharacterData] =
+    useState<AppData["character"]>(null);
 
   const appData: AppData = useMemo(() => {
     return {
       isLoading,
-      character: characterData
+      character: characterData,
     };
   }, [isLoading, characterData]);
 
@@ -34,10 +38,15 @@ export const AppDataContextProvider = ({ children }: React.PropsWithChildren) =>
     (async () => {
       const response: Character = await ky.get(`${API_URL}/character/1`).json();
 
+      const { id, name, gender, status, image, episode } = response;
+
       const nextCharacterData: AppData["character"] = {
-        name: response.name,
-        status: response.status,
-        imageUrl: response.image
+        id,
+        name,
+        gender,
+        status,
+        imageUrl: image,
+        episodes: episode.length,
       };
 
       setCharacterData(nextCharacterData);

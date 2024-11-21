@@ -41,7 +41,6 @@ export const Heading = styled.div<HeadingProps>`
       case "Dead":
         return props.theme.colors.status.dead;
       default:
-        // Returning grey for all the cases other than "Alive" and "Dead"
         return props.theme.colors.status.unknown;
     }
   }};

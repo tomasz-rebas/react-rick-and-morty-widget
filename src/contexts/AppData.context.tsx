@@ -20,25 +20,25 @@ type AppData = {
     imageUrl: string;
     episodes: number;
   } | null;
-  currentCharacterId: number;
-  setCurrentCharacterId: Dispatch<SetStateAction<number>>;
+  currentId: number;
+  setCurrentId: Dispatch<SetStateAction<number>>;
   isError: boolean;
 };
 
 export const AppDataContext = createContext<AppData>({
   isLoading: true,
   character: null,
-  currentCharacterId: 1,
-  setCurrentCharacterId: () => {},
+  currentId: 1,
+  setCurrentId: () => {},
   isError: false,
 });
 
 export const AppDataContextProvider = ({
   children,
 }: React.PropsWithChildren) => {
-  const [currentCharacterId, setCurrentCharacterId] = useState<number>(1);
+  const [currentId, setCurrentId] = useState<AppData["currentId"]>(1);
   const [isLoading, setIsLoading] = useState<AppData["isLoading"]>(true);
-  const [isError, setIsError] = useState<boolean>(false);
+  const [isError, setIsError] = useState<AppData["isError"]>(false);
   const [characterData, setCharacterData] =
     useState<AppData["character"]>(null);
 
@@ -48,7 +48,7 @@ export const AppDataContextProvider = ({
 
     try {
       const response: Character = await ky
-        .get(`${API_URL}/character/${currentCharacterId}`)
+        .get(`${API_URL}/character/${currentId}`)
         .json();
 
       const { id, name, gender, status, image, episode } = response;
@@ -72,14 +72,14 @@ export const AppDataContextProvider = ({
 
   useEffect(() => {
     fetchData();
-  }, [currentCharacterId]);
+  }, [currentId]);
 
   const appData: AppData = useMemo(() => {
     return {
       isLoading,
       character: characterData,
-      currentCharacterId,
-      setCurrentCharacterId,
+      currentId,
+      setCurrentId,
       isError,
     };
   }, [isLoading, characterData]);

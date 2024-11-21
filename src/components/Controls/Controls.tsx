@@ -14,13 +14,12 @@ const MAXIMUM_CHARACTER_COUNT = 826;
 const Controls: React.FC = () => {
   const [isFirstCharacter, setIsFirstCharacter] = useState(true);
   const [isLastCharacter, setIsLastCharacter] = useState(false);
-  const { isLoading, currentCharacterId, setCurrentCharacterId } =
-    useContext(AppDataContext);
+  const { isLoading, currentId, setCurrentId } = useContext(AppDataContext);
 
   useEffect(() => {
-    if (currentCharacterId === 1) {
+    if (currentId === 1) {
       setIsFirstCharacter(true);
-    } else if (currentCharacterId === MAXIMUM_CHARACTER_COUNT) {
+    } else if (currentId === MAXIMUM_CHARACTER_COUNT) {
       setIsLastCharacter(true);
     } else {
       if (isFirstCharacter) {
@@ -31,14 +30,14 @@ const Controls: React.FC = () => {
         setIsLastCharacter(false);
       }
     }
-  }, [currentCharacterId]);
+  }, [currentId]);
 
   const fetchNextCharacter = (): void => {
-    setCurrentCharacterId((previousId) => previousId + 1);
+    setCurrentId((previousId) => previousId + 1);
   };
 
   const fetchPreviousCharacter = (): void => {
-    setCurrentCharacterId((previousId) => previousId - 1);
+    setCurrentId((previousId) => previousId - 1);
   };
 
   return (

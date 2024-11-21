@@ -12,16 +12,17 @@ export const Button = styled.button`
   height: 30px;
   font-size: 12px;
   font-weight: 700;
-  border: 1px solid #e0e0e0;
+  border: 1px solid ${(props) => props.theme.colors.border};
   border-radius: 4px;
-  background-color: #f2f2f2;
+  background-color: ${(props) => props.theme.colors.background};
   text-decoration: none;
   cursor: pointer;
 
   :hover {
-    background-color: #e8e8e8;
+    background-color: ${(props) => props.theme.colors.hover};
   }
 
+  // Simple animation for the button to make clicking visible
   :active {
     transform: translateY(2px);
   }

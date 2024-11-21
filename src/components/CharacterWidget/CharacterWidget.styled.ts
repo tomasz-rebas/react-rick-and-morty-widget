@@ -1,18 +1,19 @@
 import styled from "@emotion/styled";
+import { Character } from "../../types/RickAndMorty.types";
 
 export const CharacterWidgetContainer = styled.div`
   width: 360px;
   height: 120px;
   border-radius: 8px;
-  border: 1px solid #e0e0e0;
+  border: ${(props) => `1px solid ${props.theme.colors.border}`};
   font-size: 11px;
-  background-color: #f2f2f2;
+  background-color: ${(props) => props.theme.colors.background};
 `;
 
 export const Label = styled.span`
   padding: 4px;
   border-radius: 4px;
-  background-color: #b2d0eb;
+  background-color: ${(props) => props.theme.colors.label};
   margin-right: 4px;
 `;
 
@@ -20,24 +21,28 @@ export const CharacterAvatar = styled.img`
   width: 70px;
   height: 70px;
   border-radius: 4px;
-  filter: drop-shadow(0 4px 4px #00000026);
+  filter: ${(props) => `drop-shadow(0 4px 4px ${props.theme.colors.shadow})`};
 `;
 
-export const Heading = styled.div<{ status: string }>`
+interface HeadingProps {
+  status: Character["status"];
+}
+
+export const Heading = styled.div<HeadingProps>`
   max-height: 30px;
   padding: 8px 10px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
 
-  background-color: ${({ status }) => {
-    switch (status) {
+  background-color: ${(props) => {
+    switch (props.status) {
       case "Alive":
-        return "#87c74026";
+        return props.theme.colors.status.alive;
       case "Dead":
-        return "#EB575726";
+        return props.theme.colors.status.dead;
       default:
         // Returning grey for all the cases other than "Alive" and "Dead"
-        return "#E0E0E0";
+        return props.theme.colors.status.unknown;
     }
   }};
 `;

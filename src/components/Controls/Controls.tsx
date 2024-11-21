@@ -14,7 +14,7 @@ const MAXIMUM_CHARACTER_COUNT = 826;
 const Controls: React.FC = () => {
   const [isPreviousDisabled, setIsPreviousDisabled] = useState(true);
   const [isNextDisabled, setIsNextDisabled] = useState(false);
-  const { currentCharacterId, setCurrentCharacterId } =
+  const { isLoading, currentCharacterId, setCurrentCharacterId } =
     useContext(AppDataContext);
 
   useEffect(() => {
@@ -38,10 +38,16 @@ const Controls: React.FC = () => {
 
   return (
     <Wrapper>
-      <Button disabled={isPreviousDisabled} onClick={fetchPreviousCharacter}>
+      <Button
+        disabled={isPreviousDisabled || isLoading}
+        onClick={fetchPreviousCharacter}
+      >
         Previous
       </Button>
-      <Button disabled={isNextDisabled} onClick={fetchNextCharacter}>
+      <Button
+        disabled={isNextDisabled || isLoading}
+        onClick={fetchNextCharacter}
+      >
         Next
       </Button>
     </Wrapper>
